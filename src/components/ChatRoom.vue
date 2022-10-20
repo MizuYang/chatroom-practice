@@ -32,7 +32,7 @@
         <!-- 文字輸入列表 -->
         <footer class="w-100 bg-chatroom-footer position-absolute bottom-0 h-60px">
           <div class="d-flex align-items-center justify-content-center h-100">
-            <textarea cols="45" rows="2"></textarea>
+            <textarea cols="45" rows="1" class="fs-2 ps-2"></textarea>
             <button type="button" class="btn btn-lg btn-primary ms-2">送出</button>
           </div>
         </footer>
@@ -68,7 +68,7 @@
         <!-- 文字輸入列表 -->
         <footer class="w-100 bg-chatroom-footer position-absolute bottom-0 h-60px">
           <div class="d-flex align-items-center justify-content-center h-100">
-            <textarea cols="45" rows="2"></textarea>
+            <textarea cols="45" rows="1" class="fs-2 ps-2"></textarea>
             <button type="button" class="btn btn-lg btn-primary ms-2">送出</button>
           </div>
         </footer>
@@ -112,6 +112,11 @@ export default {
           status: 'student',
           name: '小華',
           content: '謝謝老師，我已經開始蒐集作業資料，順便整理了一下筆記，希望明天可以準時提交作業。'
+        },
+        {
+          status: 'teacher',
+          name: '王老師',
+          content: '不客氣^^'
         }
       ]
     }
