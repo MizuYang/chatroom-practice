@@ -222,12 +222,10 @@ export default {
     },
     //* 學生新增 emoji
     stuAddEmoji (emoji) {
-      console.log('學生', emoji)
       this.studentTxt = `${this.studentTxt}${emoji}`
     },
     //* 老師新增 emoji
     teaAddEmoji (emoji) {
-      console.log('老師', emoji)
       this.teacherTxt = `${this.teacherTxt}${emoji}`
     }
   },

@@ -53,7 +53,6 @@ export default {
     const emojiWrap = this.$refs.emojiWrap
 
     emojiWrap.addEventListener('click', (e) => {
-      console.log(e.target)
     })
   }
 }

@@ -1,17 +1,16 @@
-Vue CLI 環境建立模板
+<h2>專案摺疊選單練習</h2>
 
-已建立
- - Bootstrap  v
- - Bootstrap _variables  自訂變數 v
- - Axios  v
- - Mitt  v
- - Loading Overlay  v
- - Router 切頁面捲動 Top:0  v
- - 千分位轉換 v
+- 使用 Bootstrap 元件
 
+<hr />
 
-未建立
- - Bootstrap icons x
- - VeeValidate  x
- - Swiper  x
- - AOS  x
+<h2>聊天室</h2>
+
+- 模擬 Line 聊天室介面
+- 自己的對話氣泡為綠色、對方則為白色 (Line 配色)
+- 可使用 Emoji 功能
+- 按下送出可發送訊息
+- 有新對話時，對話滾動條自動置底
+
+<img src="./src/assets/chatroom/readme示範圖/對話介面.png" alt="聊天室圖片">
+<img src="./src/assets/chatroom/readme示範圖/Emoji介面.png" alt="聊天室圖片">
