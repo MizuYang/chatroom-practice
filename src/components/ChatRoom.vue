@@ -21,7 +21,7 @@
                 <div class="d-flex align-items-center">
                   <!-- 大頭貼、姓名 -->
                   <img src="../assets/chatroom/默認大頭貼.png" alt="默認大頭貼" width="20" height="20" class="me-1">
-                  <span>{{ val.name }}</span>
+                  <strong>{{ val.name }}</strong>
                 </div>
                 <!-- 日期 -->
                 <span :data-time="val.time" class="ms-auto"></span>
@@ -39,8 +39,18 @@
 
         <!-- 文字輸入列表 -->
         <footer class="w-100 bg-chatroom-footer position-sticky bottom-0 h-60px">
+          <!-- Icons 元件 -->
+          <div class="position-absolute emoji-position" v-if="stuIconShow">
+            <EmojiItem :status="'student'" @stuAddEmoji="stuAddEmoji" data-watch="emoji"></EmojiItem>
+          </div>
           <div class="d-flex align-items-center justify-content-center h-100">
+            <!-- Icons 按鈕 -->
+            <a href="javascript:;" class="me-2" @click="stuIconShow = !stuIconShow">
+              <img src="../assets/chatroom/貼圖按鈕.png" alt="表情貼圖按鈕" width="40">
+            </a>
+            <!-- 文字框 -->
             <textarea cols="45" rows="1" class="fs-2 ps-2" v-model.trim="studentTxt" ref="studentTxt"></textarea>
+            <!-- 送出按鈕 -->
             <button type="button" class="btn btn-lg btn-primary ms-2" @click="stuSendTxt" :disabled="!studentTxt">送出</button>
           </div>
         </footer>
@@ -66,7 +76,7 @@
                 <div class="d-flex align-items-center">
                   <!-- 大頭貼、姓名 -->
                   <img src="../assets/chatroom/默認大頭貼.png" alt="默認大頭貼" width="20" height="20" class="me-1">
-                  <span>{{ val.name }}</span>
+                  <strong>{{ val.name }}</strong>
                 </div>
                 <!-- 日期 -->
                 <span :data-time="val.time" class="ms-auto"></span>
@@ -84,8 +94,18 @@
 
         <!-- 文字輸入列表 -->
         <footer class="w-100 bg-chatroom-footer position-sticky bottom-0 h-60px">
+          <!-- Icons 元件 -->
+          <div class="position-absolute emoji-position" v-if="teaIconShow">
+            <EmojiItem :status="'teacher'" @teaAddEmoji="teaAddEmoji"></EmojiItem>
+          </div>
           <div class="d-flex align-items-center justify-content-center h-100">
+            <!-- Icons 按鈕 -->
+            <a href="javascript:;" class="me-2" @click="teaIconShow = !teaIconShow">
+              <img src="../assets/chatroom/貼圖按鈕.png" alt="表情貼圖按鈕" width="40">
+            </a>
+            <!-- 文字框 -->
             <textarea cols="45" rows="1" class="fs-2 ps-2" v-model.trim="teacherTxt" ref="teacherTxt"></textarea>
+             <!-- 送出按鈕 -->
             <button type="button" class="btn btn-lg btn-primary ms-2" @click="TeaSendTxt" :disabled="!teacherTxt">送出</button>
           </div>
         </footer>
@@ -98,8 +118,11 @@
 </template>
 
 <script>
-
+import EmojiItem from '../components/EmojiItem.vue'
 export default {
+  components: {
+    EmojiItem
+  },
 
   data () {
     return {
@@ -143,7 +166,9 @@ export default {
         }
       ],
       studentTxt: '',
-      teacherTxt: ''
+      teacherTxt: '',
+      stuIconShow: false,
+      teaIconShow: false
     }
   },
 
@@ -194,10 +219,35 @@ export default {
         //* 學生聊天室捲動置底
         this.$refs.studentChat.scrollTop = this.$refs.studentChat.scrollHeight
       })
+    },
+    //* 學生新增 emoji
+    stuAddEmoji (emoji) {
+      console.log('學生', emoji)
+      this.studentTxt = `${this.studentTxt}${emoji}`
+    },
+    //* 老師新增 emoji
+    teaAddEmoji (emoji) {
+      console.log('老師', emoji)
+      this.teacherTxt = `${this.teacherTxt}${emoji}`
     }
   },
 
   mounted () {
+    //* 監聽聊天室窗，若點擊的不是 Emoji 則隱藏 Emoji
+    //* 監聽學生
+    this.$refs.studentChat.addEventListener('click', (e) => {
+      if (!e.target.classList.value) return
+      if (!e.target.classList.value.includes('emoji')) {
+        this.stuIconShow = false
+      }
+    })
+    //* 監聽老師
+    this.$refs.teacherChat.addEventListener('click', (e) => {
+      if (!e.target.classList.value) return
+      if (!e.target.classList.value.includes('emoji')) {
+        this.teaIconShow = false
+      }
+    })
   }
 
 }
@@ -206,7 +256,7 @@ export default {
 <style lang='scss' scope>
 textarea {
   resize:none;
-  width: 80%;
+  width: 70%;
 }
 .w-20 {
   width: 20%;
@@ -275,5 +325,10 @@ textarea {
 }
 .zIndex1 {
   z-index: 1;
+}
+//* 表情包位置調整
+.emoji-position {
+  left: 20px;
+  bottom: 60px;
 }
 </style>
