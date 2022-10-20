@@ -2,9 +2,9 @@
   <div class="container">
     <row class="row row-cols-2 justify-content-center">
       <!-- 學生對話窗(左邊) -->
-      <section class="w-40 position-relative bg-chatroom-header border chatroom-h px-0 me-5">
+      <section class="w-40 h870 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5">
         <!-- 對話的對象 -->
-        <header>
+        <header class="position-sticky top-0 zIndex1">
           <h2 class="chatroom-title text-light text-center lh-base py-2">
             老師
             <a href="javascript:;" class="position-absolute end-0 border-start ps-3 me-3 ">
@@ -14,7 +14,7 @@
         </header>
 
         <!-- 對話內容 -->
-        <div class="container my-4">
+        <div class="container contentBodyStu my-4">
           <div v-for="(val, index) in chat" :key="`${val.content}${index}`" class="lh-lg mb-2">
             <div class="d-flex align-items-center">
               <div class="w-20">
@@ -38,18 +38,18 @@
         </div>
 
         <!-- 文字輸入列表 -->
-        <footer class="w-100 bg-chatroom-footer position-absolute bottom-0 h-60px">
+        <footer class="w-100 bg-chatroom-footer position-sticky bottom-0 h-60px">
           <div class="d-flex align-items-center justify-content-center h-100">
-            <textarea cols="45" rows="1" class="fs-2 ps-2" v-model="studentTxt"></textarea>
-            <button type="button" class="btn btn-lg btn-primary ms-2" @click="stuSendTxt">送出</button>
+            <textarea cols="45" rows="1" class="fs-2 ps-2" v-model.trim="studentTxt" ref="studentTxt"></textarea>
+            <button type="button" class="btn btn-lg btn-primary ms-2" @click="stuSendTxt" :disabled="!studentTxt">送出</button>
           </div>
         </footer>
       </section>
 
       <!-- 老師對話窗(右邊) -->
-      <section class="w-40 position-relative bg-chatroom-header border chatroom-h px-0">
+      <section class="w-40 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0">
         <!-- 對話的對象 -->
-        <header>
+        <header class="position-sticky top-0 zIndex1">
           <h2 class="chatroom-title text-light text-center lh-base py-2">
             學生
             <a href="javascript:;" class="position-absolute end-0 border-start ps-3 me-3 ">
@@ -59,7 +59,7 @@
         </header>
 
         <!-- 對話內容 -->
-        <div class="container my-4">
+        <div class="container contentBodyStu my-4">
           <div v-for="(val, index) in chat" :key="`${val.content}${index}`" class="lh-lg mb-2">
             <div class="d-flex align-items-center">
               <div class="w-20">
@@ -83,10 +83,10 @@
         </div>
 
         <!-- 文字輸入列表 -->
-        <footer class="w-100 bg-chatroom-footer position-absolute bottom-0 h-60px">
+        <footer class="w-100 bg-chatroom-footer position-sticky bottom-0 h-60px">
           <div class="d-flex align-items-center justify-content-center h-100">
-            <textarea cols="45" rows="1" class="fs-2 ps-2" v-model="teacherTxt"></textarea>
-            <button type="button" class="btn btn-lg btn-primary ms-2" @click="TeaSendTxt">送出</button>
+            <textarea cols="45" rows="1" class="fs-2 ps-2" v-model.trim="teacherTxt" ref="teacherTxt"></textarea>
+            <button type="button" class="btn btn-lg btn-primary ms-2" @click="TeaSendTxt" :disabled="!teacherTxt">送出</button>
           </div>
         </footer>
 
@@ -154,6 +154,9 @@ export default {
       const dateSplit = new Date().toLocaleString().split(' ')[1].split(':')
       const time = `${dateSplit[0]}:${dateSplit[1]}`
 
+      //* 若用戶輸入空白
+      if (this.studentTxt === ' ') this.studentTxt = '　'
+
       this.chat.push({
         status: 'student',
         name: '小華',
@@ -163,12 +166,16 @@ export default {
 
       //* 初始化
       this.studentTxt = ''
+      this.$refs.studentTxt.focus()
     },
     //* 老師送出訊息
     TeaSendTxt () {
       //* 取得時間
       const dateSplit = new Date().toLocaleString().split(' ')[1].split(':')
       const time = `${dateSplit[0]}:${dateSplit[1]}`
+
+      //* 若用戶輸入空白
+      if (this.teacherTxt === ' ') this.teacherTxt = '　'
 
       this.chat.push({
         status: 'teacher',
@@ -178,6 +185,7 @@ export default {
       })
       //* 初始化
       this.teacherTxt = ''
+      this.$refs.teacherTxt.focus()
     }
   },
 
@@ -203,6 +211,9 @@ textarea {
 }
 .h-60px{
   height: 60px;
+}
+.h870 {
+  height: 870px !important;
 }
 .bg-chatroom-header {
   background-image: url('../assets/chatroom/LINE聊天室背景.webp');
@@ -242,7 +253,22 @@ textarea {
 .triangle-myChar::before {
   border-color: transparent #84E148 transparent transparent;
 }
+//* 日期時間
 [data-time]::after {
   content: attr(data-time) "";
+}
+//* 滾動條
+.overflow-scrollY {
+  overflow-y: scroll;
+}
+.contentBodyStu {
+  // height: 600px;
+  min-height: calc( 100vh - 224px );
+  // position: absolute !important;
+  // bottom: 0;
+  bottom: calc(100vh - 810px);
+}
+.zIndex1 {
+  z-index: 1;
 }
 </style>
