@@ -8,10 +8,6 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 
 import $thousandths from '@/utils/thousandths.js' //* 千分位
 
-//* Vuex
-import Vuex from 'vuex'
-import store from './vuex/index'
-
 import App from './App.vue'
 import router from './router'
 
@@ -22,7 +18,5 @@ app.config.globalProperties.$thousandths = $thousandths //* 千分位
 app.component('IsLoading', VueLoading)
 
 app.use(router)
-app.use(Vuex)
-app.use(store)
 app.use(VueAxios, axios)
 app.mount('#app')

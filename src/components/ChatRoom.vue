@@ -2,7 +2,7 @@
   <div class="container">
     <row class="row row-cols-2 justify-content-center">
       <!-- 學生對話窗(左邊) -->
-      <section class="w-40 h870 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5">
+      <section class="w-40 h870 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5" ref="studentChat">
         <!-- 對話的對象 -->
         <header class="position-sticky top-0 zIndex1">
           <h2 class="chatroom-title text-light text-center lh-base py-2">
@@ -47,7 +47,7 @@
       </section>
 
       <!-- 老師對話窗(右邊) -->
-      <section class="w-40 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0">
+      <section class="w-40 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0" ref="teacherChat">
         <!-- 對話的對象 -->
         <header class="position-sticky top-0 zIndex1">
           <h2 class="chatroom-title text-light text-center lh-base py-2">
@@ -154,9 +154,6 @@ export default {
       const dateSplit = new Date().toLocaleString().split(' ')[1].split(':')
       const time = `${dateSplit[0]}:${dateSplit[1]}`
 
-      //* 若用戶輸入空白
-      if (this.studentTxt === ' ') this.studentTxt = '　'
-
       this.chat.push({
         status: 'student',
         name: '小華',
@@ -167,15 +164,19 @@ export default {
       //* 初始化
       this.studentTxt = ''
       this.$refs.studentTxt.focus()
+      //* 對話內容增加時，畫面自動捲動到最下面
+      this.$nextTick(() => {
+        //* 老師聊天室捲動置底
+        this.$refs.teacherChat.scrollTop = this.$refs.teacherChat.scrollHeight
+        //* 學生聊天室捲動置底
+        this.$refs.studentChat.scrollTop = this.$refs.studentChat.scrollHeight
+      })
     },
     //* 老師送出訊息
     TeaSendTxt () {
       //* 取得時間
       const dateSplit = new Date().toLocaleString().split(' ')[1].split(':')
       const time = `${dateSplit[0]}:${dateSplit[1]}`
-
-      //* 若用戶輸入空白
-      if (this.teacherTxt === ' ') this.teacherTxt = '　'
 
       this.chat.push({
         status: 'teacher',
@@ -186,6 +187,13 @@ export default {
       //* 初始化
       this.teacherTxt = ''
       this.$refs.teacherTxt.focus()
+      //* 對話內容增加時，畫面自動捲動到最下面
+      this.$nextTick(() => {
+        //* 老師聊天室捲動置底
+        this.$refs.teacherChat.scrollTop = this.$refs.teacherChat.scrollHeight
+        //* 學生聊天室捲動置底
+        this.$refs.studentChat.scrollTop = this.$refs.studentChat.scrollHeight
+      })
     }
   },
 
@@ -262,10 +270,7 @@ textarea {
   overflow-y: scroll;
 }
 .contentBodyStu {
-  // height: 600px;
   min-height: calc( 100vh - 224px );
-  // position: absolute !important;
-  // bottom: 0;
   bottom: calc(100vh - 810px);
 }
 .zIndex1 {
