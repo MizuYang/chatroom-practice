@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <row class="row row-cols-2 justify-content-center">
+    <div class="row row-cols-2 justify-content-center">
       <!-- 學生對話窗(左邊) -->
       <section class="w-40 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5" ref="studentChat">
         <!-- 對話的對象 -->
@@ -67,7 +67,6 @@
             </a>
           </h2>
         </header>
-
         <!-- 對話內容 -->
         <div class="container contentBodyStu my-4">
           <div v-for="(val, index) in chat" :key="`${val.content}${index}`" class="lh-lg mb-2">
@@ -111,7 +110,7 @@
         </footer>
 
       </section>
-    </row>
+    </div>
   </div>
 
    <IsLoading v-model:active="isLoading"></IsLoading>
