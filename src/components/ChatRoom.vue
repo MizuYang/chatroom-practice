@@ -2,7 +2,7 @@
   <div class="container">
     <row class="row row-cols-2 justify-content-center">
       <!-- 學生對話窗(左邊) -->
-      <section class="w-40 h870 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5" ref="studentChat">
+      <section class="w-40 position-relative bg-chatroom-header border chatroom-h overflow-scrollY px-0 me-5" ref="studentChat">
         <!-- 對話的對象 -->
         <header class="position-sticky top-0 zIndex1">
           <h2 class="chatroom-title text-light text-center lh-base py-2">
@@ -268,9 +268,6 @@ textarea {
 .h-60px{
   height: 60px;
 }
-.h870 {
-  height: 870px !important;
-}
 .bg-chatroom-header {
   background-image: url('../assets/chatroom/LINE聊天室背景.webp');
   background-repeat: no-repeat;
@@ -319,7 +316,6 @@ textarea {
 }
 .contentBodyStu {
   min-height: calc( 100vh - 224px );
-  bottom: calc(100vh - 810px);
 }
 .zIndex1 {
   z-index: 1;
