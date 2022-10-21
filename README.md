@@ -19,4 +19,4 @@
 
 <h3>操作示範</h3>
 
-<video src="./src/assets/chatroom/readme示範圖/對話示範.mp4"></video>
+<video src="./src/assets/chatroom/readme示範圖/對話示範.mp4" controls></video>
