@@ -12,5 +12,11 @@
 - 按下送出可發送訊息
 - 有新對話時，對話滾動條自動置底
 
+<h3>畫面截圖</h3>
+
 <img src="./src/assets/chatroom/readme示範圖/對話介面.png" alt="聊天室圖片">
 <img src="./src/assets/chatroom/readme示範圖/Emoji介面.png" alt="聊天室圖片">
+
+<h3>操作示範</h3>
+
+<video src="./src/assets/chatroom/readme示範圖/對話示範.mp4"></video>
